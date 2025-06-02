@@ -1,0 +1,91 @@
+{
+  "common": {
+    "loader": {
+      "ariaLabel": "Loading..."
+    }
+  },
+  "layout": {
+    "navbar": {
+      "title": "Poll App"
+    },
+    "userNav": {
+      "userMenu": {
+        "dashboard": "My Polls",
+        "createPoll": "Create Poll",
+        "logout": "Logout",
+        "or": "or",
+        "loginWithEmail": "Login with email"
+      }
+    }
+  },
+  "auth": {
+    "loginForm": {
+      "email": "Email",
+      "password": "Password",
+      "login": "Login",
+      "signup": "Sign up",
+      "forgotPassword": "forgot password"
+    },
+    "loginWithDiscordButton": {
+      "label": "Login with Discord"
+    },
+    "logoutButton": {
+      "label": "Logout"
+    },
+    "loginPage": {
+      "title": "Login",
+      "or": "or"
+    }
+  },
+  "poll": {
+    "create": {
+      "title": "Create New Poll",
+      "basicInfo": "Basic Information",
+      "pollTitle": "Poll Title",
+      "pollTitlePlaceholder": "Enter your poll title",
+      "pollDescription": "Description",
+      "pollDescriptionPlaceholder": "Describe your poll (optional)",
+      "settings": "Poll Settings",
+      "isPublic": "Make poll public",
+      "allowAnonymous": "Allow anonymous responses",
+      "maxResponses": "Maximum responses",
+      "maxResponsesPlaceholder": "Leave empty for unlimited",
+      "startsAt": "Start date",
+      "endsAt": "End date",
+      "steps": "Poll Steps",
+      "addStep": "Add Step",
+      "stepTitle": "Step Title",
+      "stepTitlePlaceholder": "Enter step title",
+      "stepDescription": "Step Description",
+      "stepDescriptionPlaceholder": "Describe this step (optional)",
+      "stepRequired": "Required step",
+      "questions": "Questions",
+      "addQuestion": "Add Question",
+      "questionText": "Question",
+      "questionTextPlaceholder": "Enter your question",
+      "questionType": "Question Type",
+      "questionRequired": "Required question",
+      "allowOther": "Allow 'Other' option",
+      "maxSelections": "Maximum selections",
+      "minSelections": "Minimum selections",
+      "options": "Options",
+      "addOption": "Add Option",
+      "optionText": "Option text",
+      "optionTextPlaceholder": "Enter option text",
+      "removeOption": "Remove option",
+      "removeQuestion": "Remove question",
+      "removeStep": "Remove step",
+      "saveDraft": "Save as Draft",
+      "publish": "Publish Poll",
+      "cancel": "Cancel"
+    },
+    "questionTypes": {
+      "checkbox": "Multiple Choice (Checkbox)",
+      "radio": "Single Choice (Radio)",
+      "text": "Short Text",
+      "textarea": "Long Text",
+      "rating": "Rating Scale",
+      "ranking": "Ranking"
+    }
+  }
+}
