@@ -2,9 +2,10 @@
 
 import { revalidatePath } from "next/cache";
 import type { PollFormData } from "../lib/schemas";
+import { fail, ok, Result } from "@/lib/result";
 
 // Mock database operations - replace with actual database calls
-export async function createPoll(data: PollFormData) {
+export async function createPoll(data: PollFormData): Promise<Result<string>> {
   try {
     // Simulate API delay
     await new Promise((resolve) => setTimeout(resolve, 1000));
@@ -20,15 +21,19 @@ export async function createPoll(data: PollFormData) {
     // Mock successful creation
     const pollId = "mock-poll-id-" + Date.now();
 
-    revalidatePath("/polls");
-    return { success: true, pollId };
+    revalidatePath("/");
+    revalidatePath("/dashboard/*");
+    revalidatePath("/polls/" + pollId);
+    return ok(pollId);
   } catch (error) {
     console.error("Error creating poll:", error);
-    return { success: false, error: "Failed to create poll" };
+    return fail("Failed to create poll");
   }
 }
 
-export async function savePollDraft(data: PollFormData) {
+export async function savePollDraft(
+  data: PollFormData
+): Promise<Result<string>> {
   try {
     // Similar to createPoll but with status: 'draft'
     await new Promise((resolve) => setTimeout(resolve, 500));
@@ -37,10 +42,12 @@ export async function savePollDraft(data: PollFormData) {
 
     const pollId = "mock-draft-id-" + Date.now();
 
-    revalidatePath("/polls");
-    return { success: true, pollId };
+    revalidatePath("/");
+    revalidatePath("/dashboard/*");
+    revalidatePath("/polls/" + pollId);
+    return ok(pollId);
   } catch (error) {
-    console.error("Error saving poll draft:", error);
-    return { success: false, error: "Failed to save draft" };
+    console.error("Error creating poll draft:", error);
+    return fail("Failed to create poll draft");
   }
 }

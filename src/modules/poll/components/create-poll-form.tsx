@@ -1,13 +1,8 @@
 "use client";
 
-import { useTransition } from "react";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
 import { useTranslations } from "next-intl";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { CalendarIcon, Plus } from "lucide-react";
 import { format } from "date-fns";
-import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -34,117 +29,15 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import {
-  pollFormSchema,
-  type PollFormData,
-  type StepFormData,
-} from "../lib/schemas";
-import { createPoll, savePollDraft } from "../actions/poll-actions";
-import { pollQueryOptions } from "../lib/query-options";
+import { type StepFormData } from "../lib/schemas";
 import { StepsList } from "./steps-list";
 import { cn } from "@/lib/utils";
+import { usePollForm } from "../hooks/use-poll-form";
 
 export function CreatePollForm() {
   const t = useTranslations("poll.create");
-  const queryClient = useQueryClient();
-  const [isPending, startTransition] = useTransition();
-
-  const form = useForm<PollFormData>({
-    resolver: zodResolver(pollFormSchema),
-    defaultValues: {
-      title: "",
-      description: "",
-      isPublic: false,
-      allowAnonymous: true,
-      steps: [
-        {
-          title: "",
-          description: "",
-          stepOrder: 0,
-          isRequired: true,
-          questions: [
-            {
-              questionText: "",
-              questionOrder: 0,
-              questionType: "radio",
-              isRequired: false,
-              allowOther: false,
-              options: [
-                { optionText: "", optionOrder: 0, isOther: false },
-                { optionText: "", optionOrder: 1, isOther: false },
-              ],
-            },
-          ],
-        },
-      ],
-    },
-  });
-
-  const createPollMutation = useMutation({
-    mutationFn: createPoll,
-    onSuccess: (result) => {
-      if (result.success) {
-        toast.success("Poll created successfully!");
-        queryClient.invalidateQueries({ queryKey: pollQueryOptions.all() });
-        form.reset();
-      } else {
-        toast.error(result.error || "Failed to create poll");
-      }
-    },
-  });
-
-  const saveDraftMutation = useMutation({
-    mutationFn: savePollDraft,
-    onSuccess: (result) => {
-      if (result.success) {
-        toast.success("Draft saved successfully!");
-        queryClient.invalidateQueries({ queryKey: pollQueryOptions.all() });
-      } else {
-        toast.error(result.error || "Failed to save draft");
-      }
-    },
-  });
-
-  const onSubmit = (data: PollFormData) => {
-    startTransition(() => {
-      createPollMutation.mutate(data);
-    });
-  };
-
-  const onSaveDraft = () => {
-    const data = form.getValues();
-    startTransition(() => {
-      saveDraftMutation.mutate(data);
-    });
-  };
-
-  const addStep = () => {
-    const currentSteps = form.getValues("steps");
-    const newStep: StepFormData = {
-      title: "",
-      description: "",
-      stepOrder: currentSteps.length,
-      isRequired: true,
-      questions: [
-        {
-          questionText: "",
-          questionOrder: 0,
-          questionType: "radio",
-          isRequired: false,
-          allowOther: false,
-          options: [
-            { optionText: "", optionOrder: 0, isOther: false },
-            { optionText: "", optionOrder: 1, isOther: false },
-          ],
-        },
-      ],
-    };
-    form.setValue("steps", [...currentSteps, newStep]);
-  };
-
-  const updateSteps = (steps: StepFormData[]) => {
-    form.setValue("steps", steps);
-  };
+  const { form, addStep, isPending, onSaveDraft, onSubmit, updateSteps } =
+    usePollForm();
 
   return (
     <div className="space-y-8">
@@ -375,7 +268,10 @@ export function CreatePollForm() {
               </div>
             </CardHeader>
             <CardContent>
-              <StepsList steps={form.watch("steps")} onUpdate={updateSteps} />
+              <StepsList
+                steps={form.watch("steps") as StepFormData[]}
+                onUpdate={updateSteps}
+              />
             </CardContent>
           </Card>
 
