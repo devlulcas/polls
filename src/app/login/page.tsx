@@ -20,7 +20,7 @@ export default function LoginPage() {
     <div className="min-h-screen flex items-center justify-center bg-[url('/red-clouds.webp')] bg-repeat bg-auto p-4 bg-center before:absolute before:backdrop-blur-sm before:w-full before:h-full">
       <RedirectWarning />
       <div className="w-full max-w-md">
-        <Card className="shadow-lg border-0 bg-background backdrop-blur-sm">
+        <Card className="shadow-lg border-0 bg-background backdrop-blur-sm relative overflow-hidden">
           <CardHeader className="space-y-1 text-center pb-3">
             <CardTitle className="text-5xl font-bold tracking-tight font-serif">
               {t("title")}

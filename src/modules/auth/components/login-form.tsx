@@ -13,11 +13,11 @@ import { login, signup } from "../actions/auth-actions";
 import { useTranslations } from "next-intl";
 import { useActionState, useEffect, useState } from "react";
 import { EyeIcon, EyeOffIcon } from "lucide-react";
-import { useFormState } from "react-dom";
 import { useQueryClient } from "@tanstack/react-query";
 import { currentUserQueryOptions } from "@/modules/user/hooks/use-current-user-query";
 import { extractMessage, isOk } from "@/lib/result";
-import { FullPageLoader } from "@/components/common/full-page-loader";
+import { AnimatePresence, motion } from "motion/react";
+import { useRouter } from "next/navigation";
 
 export function LoginForm() {
   const form = useLoginForm();
@@ -36,22 +36,43 @@ export function LoginForm() {
     null
   );
 
+  const pending = signupIsPending || loginIsPending;
+
   const success =
     (loginState && isOk(loginState)) || (signupState && isOk(signupState));
 
   const errorMessage =
     extractMessage(loginState) || extractMessage(signupState);
 
+  const router = useRouter();
+
   useEffect(() => {
     if (success) {
       queryClient.invalidateQueries(currentUserQueryOptions());
+      form.reset();
+      router.push("/dashboard");
     }
   }, [success, queryClient]);
 
   return (
     <Form {...form}>
-      {(signupIsPending || loginIsPending) && <FullPageLoader />}
       <form className="space-y-4">
+        {errorMessage && (
+          <AnimatePresence key={errorMessage}>
+            <motion.div
+              initial={{ opacity: 0, y: -70 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -70 }}
+              transition={{ duration: 0.3 }}
+              className="h-20 bg-gradient-to-b from-destructive/50 to-background backdrop-blur-xs p-2 flex justify-center items-center gap-2 fixed top-0 inset-x-0 z-50 "
+            >
+              <span className="text-destructive font-serif text-xl uppercase">
+                {errorMessage}
+              </span>
+            </motion.div>
+          </AnimatePresence>
+        )}
+
         <FormField
           control={form.control}
           name="email"
@@ -66,6 +87,7 @@ export function LoginForm() {
                   type="email"
                   placeholder="Enter your email"
                   className="h-11"
+                  disabled={pending}
                 />
               </FormControl>
               <FormMessage />
@@ -87,6 +109,7 @@ export function LoginForm() {
                     type={showPassword ? "text" : "password"}
                     placeholder="Enter your password"
                     className="h-11 pr-10"
+                    disabled={pending}
                   />
                   <Button
                     type="button"
@@ -113,6 +136,7 @@ export function LoginForm() {
             type="submit"
             formAction={loginFormAction}
             className="h-11 w-full"
+            disabled={pending}
           >
             {t("login")}
           </Button>
@@ -121,6 +145,7 @@ export function LoginForm() {
             formAction={signupFormAction}
             variant="outline"
             className="h-11 w-full"
+            disabled={pending}
           >
             {t("signup")}
           </Button>
@@ -130,6 +155,7 @@ export function LoginForm() {
           <Button
             variant="link"
             className="text-sm text-muted-foreground p-0 h-auto"
+            disabled={pending}
           >
             {t("forgotPassword")}
           </Button>

@@ -4,11 +4,6 @@
       "ariaLabel": "Loading..."
     }
   },
-  "theme": {
-    "themeSwitch": {
-      "ariaLabel": "Theme switch"
-    }
-  },
   "layout": {
     "navbar": {
       "title": "Poll App"
@@ -25,7 +20,7 @@
   },
   "auth": {
     "redirectReasons": {
-      "notLoggedIn": "Você precisa estar logado para acessar esta página"
+      "notLoggedIn": "You need to be logged in to access this page"
     },
     "loginForm": {
       "email": "Email",
