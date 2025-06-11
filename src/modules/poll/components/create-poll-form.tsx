@@ -42,10 +42,8 @@ export function CreatePollForm() {
   return (
     <div className="space-y-8">
       <div>
-        <h1 className="text-3xl font-bold">{t("title")}</h1>
-        <p className="text-muted-foreground mt-2">
-          Create a comprehensive poll with multiple steps and question types
-        </p>
+        <h1 className="text-2xl font-bold">{t("title")}</h1>
+        <p className="text-muted-foreground mt-2">{t("description")}</p>
       </div>
 
       <Form {...form}>

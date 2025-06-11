@@ -1,17 +1,24 @@
-import { useMutation } from "@tanstack/react-query";
 import { savePollDraft } from "../actions/poll-actions";
 import { toast } from "sonner";
-import { unwrap } from "@/lib/result";
+import { isFail, isOk } from "@/lib/result";
+import { useActionState, useEffect } from "react";
 
 export function useCreatePollDraftMutation() {
-  return useMutation({
-    mutationFn: savePollDraft,
-    onSuccess: (result) => {
-      unwrap(result);
-      toast.success("Draft saved successfully!");
-    },
-    onError: (error) => {
-      toast.error(error.message || "An error occurred while saving the draft");
-    },
-  });
+  const [state, formAction, isPending] = useActionState(savePollDraft, null);
+
+  useEffect(() => {
+    if (state && isOk(state)) {
+      toast.success("Poll saved successfully!");
+    }
+
+    if (state && isFail(state)) {
+      toast.error(state.fail || "An error occurred while creating the poll");
+    }
+  }, [state]);
+
+  return {
+    formAction,
+    isPending,
+    state,
+  };
 }

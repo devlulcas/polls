@@ -9,7 +9,7 @@ export default function Navbar() {
 
   return (
     <header className="w-full p-1 h-[var(--h-header)] sticky top-0 inset-x-0 flex items-center justify-center">
-      <nav className="container border rounded-full h-full w-full p-1 flex items-center justify-between bg-gradient-to-b from-card via-sidebar-accent/70 to-sidebar-accent/60">
+      <nav className="container border rounded-full h-full w-full p-1 flex items-center justify-between bg-gradient-to-b from-card via-sidebar-accent/70 to-sidebar-accent/60 backdrop-blur-sm">
         <Link
           href="/"
           className="text-xl font-bold font-serif flex items-center gap-1 ps-4"
