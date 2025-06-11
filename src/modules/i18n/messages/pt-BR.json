@@ -24,6 +24,9 @@
     }
   },
   "auth": {
+    "redirectReasons": {
+      "notLoggedIn": "Você precisa estar logado para acessar esta página"
+    },
     "loginForm": {
       "email": "Email",
       "password": "Password",

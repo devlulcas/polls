@@ -19,6 +19,9 @@
     }
   },
   "auth": {
+    "redirectReasons": {
+      "notLoggedIn": "You need to be logged in to access this page"
+    },
     "loginForm": {
       "email": "Email",
       "password": "Password",

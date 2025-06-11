@@ -4,7 +4,7 @@ import { LayoutWithHeader } from "@/modules/layout/components/layout-with-header
 
 export default async function DashboardPage() {
   const { data } = await getUserOnServer();
-  assertLoggedInServer(data);
+  assertLoggedInServer(data, { targetPath: "/dashboard" });
 
   return (
     <LayoutWithHeader>

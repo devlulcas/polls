@@ -5,7 +5,7 @@ import { CreatePollForm } from "@/modules/poll/components/create-poll-form";
 
 export default async function DashboardPage() {
   const { data } = await getUserOnServer();
-  assertLoggedInServer(data);
+  assertLoggedInServer(data, { targetPath: "/dashboard/polls/create" });
 
   return (
     <LayoutWithHeader>

@@ -11,6 +11,7 @@ type MaybeUser =
 
 type AssertLoggedInServerOptions = {
   redirectTo?: string;
+  targetPath?: string;
 };
 
 export function assertLoggedInServer(
@@ -21,7 +22,11 @@ export function assertLoggedInServer(
     return;
   }
 
-  if (options.redirectTo) {
-    redirect(options.redirectTo);
+  const redirectTo = options.redirectTo ?? "/login";
+  const searchParams = new URLSearchParams();
+  searchParams.set("reason", "notLoggedIn");
+  if (options.targetPath) {
+    searchParams.set("target", options.targetPath);
   }
+  redirect(`${redirectTo}?${searchParams.toString()}`);
 }

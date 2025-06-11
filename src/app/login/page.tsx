@@ -11,12 +11,14 @@ import { Separator } from "@/components/ui/separator";
 import { LoginForm } from "@/modules/auth/components/login-form";
 import { LoginWithDiscordButton } from "@/modules/auth/components/login-with-discord-button";
 import { useTranslations } from "next-intl";
+import { RedirectWarning } from "@/modules/auth/components/redirect-warning";
 
 export default function LoginPage() {
   const t = useTranslations("auth.loginPage");
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-[url('/red-clouds.webp')] bg-repeat bg-auto p-4 bg-center before:absolute before:backdrop-blur-sm before:w-full before:h-full">
+      <RedirectWarning />
       <div className="w-full max-w-md">
         <Card className="shadow-lg border-0 bg-background backdrop-blur-sm">
           <CardHeader className="space-y-1 text-center pb-3">
