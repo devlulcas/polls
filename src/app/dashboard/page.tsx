@@ -1,6 +1,7 @@
 import { getUserOnServer } from "@/modules/auth/lib/get-user-on-server";
 import { assertLoggedInServer } from "@/modules/auth/lib/assert-logged-in";
 import { LayoutWithHeader } from "@/modules/layout/components/layout-with-header";
+import { UncommittedPollsGrid } from "@/modules/poll/components/uncommitted-polls-grid";
 
 export default async function DashboardPage() {
   const { data } = await getUserOnServer();
@@ -8,7 +9,7 @@ export default async function DashboardPage() {
 
   return (
     <LayoutWithHeader>
-      <pre>{JSON.stringify(data.user, null, 2)}</pre>
+      <UncommittedPollsGrid />
     </LayoutWithHeader>
   );
 }

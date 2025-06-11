@@ -41,13 +41,23 @@
     }
   },
   "poll": {
+    "autosave": {
+      "localAutosave": {
+        "saving": "Saving local copy..."
+      }
+    },
     "create": {
       "title": "Create New Poll",
+      "description": "Create a new poll to collect feedback from your users",
+      "uncommittedPollWarning": "This local copy will be lost in {hours} hours",
       "basicInfo": "Basic Information",
       "pollTitle": "Poll Title",
       "pollTitlePlaceholder": "Enter your poll title",
       "pollDescription": "Description",
       "pollDescriptionPlaceholder": "Describe your poll (optional)",
+      "noDescription": "No description provided",
+      "lastSaved": "Last saved",
+      "remove": "Remove",
       "settings": "Poll Settings",
       "isPublic": "Make poll public",
       "allowAnonymous": "Allow anonymous responses",

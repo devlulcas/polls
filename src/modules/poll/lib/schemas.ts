@@ -44,7 +44,7 @@ export const optionFormSchema = z.object({
     .min(1, "Option text is required")
     .max(200, "Option too long"),
   optionOrder: z.number().min(0),
-  isOther: z.boolean().default(false),
+  isOther: z.coerce.boolean().default(false),
 });
 
 export const questionFormSchema = z.object({
@@ -62,8 +62,8 @@ export const questionFormSchema = z.object({
     "rating",
     "ranking",
   ]),
-  isRequired: z.boolean().default(false),
-  allowOther: z.boolean().default(false),
+  isRequired: z.coerce.boolean().default(false),
+  allowOther: z.coerce.boolean().default(false),
   maxSelections: z.number().min(1).optional(),
   minSelections: z.number().min(0).optional(),
   options: z.array(optionFormSchema).default([]),
@@ -74,15 +74,15 @@ export const stepFormSchema = z.object({
   title: z.string().min(1, "Step title is required").max(200, "Title too long"),
   description: z.string().max(500, "Description too long").optional(),
   stepOrder: z.number().min(0),
-  isRequired: z.boolean().default(true),
+  isRequired: z.coerce.boolean().default(true),
   questions: z.array(questionFormSchema).default([]),
 });
 
 export const pollFormSchema = z.object({
   title: z.string().min(1, "Title is required").max(200, "Title too long"),
   description: z.string().max(1000, "Description too long").optional(),
-  isPublic: z.boolean().default(false),
-  allowAnonymous: z.boolean().default(true),
+  isPublic: z.coerce.boolean(),
+  allowAnonymous: z.coerce.boolean(),
   maxResponses: z.number().min(1).optional(),
   startsAt: z.date().optional(),
   endsAt: z.date().optional(),

@@ -33,21 +33,26 @@ import { type StepFormData } from "../lib/schemas";
 import { StepsList } from "./steps-list";
 import { cn } from "@/lib/utils";
 import { usePollForm } from "../hooks/use-poll-form";
+import { usePollFormSave } from "../hooks/use-poll-form-save";
+import { PollAutosave } from "./poll-autosave";
 
 export function CreatePollForm() {
   const t = useTranslations("poll.create");
-  const { form, addStep, isPending, onSaveDraft, onSubmit, updateSteps } =
-    usePollForm();
+  const { form, addStep, updateSteps } = usePollForm();
+  const { isPending, onSubmit, onSaveDraft } = usePollFormSave(form);
 
   return (
     <div className="space-y-8">
-      <div>
-        <h1 className="text-2xl font-bold">{t("title")}</h1>
-        <p className="text-muted-foreground mt-2">{t("description")}</p>
-      </div>
-
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+          <div>
+            <h1 className="text-2xl font-bold flex items-center gap-2">
+              {t("title")}
+              <PollAutosave />
+            </h1>
+            <p className="text-muted-foreground mt-2">{t("description")}</p>
+          </div>
+
           {/* Basic Information */}
           <Card>
             <CardHeader>
